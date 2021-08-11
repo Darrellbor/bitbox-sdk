@@ -60,7 +60,7 @@ export class Mnemonic {
     return "Valid mnemonic"
   }
 
-  public toSeed(mnemonic: string, password: string = ""): Buffer {
+  public toSeed(mnemonic: string, password: string = ""): Promise<Buffer> {
     return BIP39.mnemonicToSeed(mnemonic, password)
   }
 
@@ -73,7 +73,7 @@ export class Mnemonic {
     numberOfKeypairs: number = 1,
     regtest: boolean = false
   ): any {
-    const rootSeedBuffer: Buffer = this.toSeed(mnemonic, "")
+    const rootSeedBuffer: Promise<Buffer> = this.toSeed(mnemonic, "")
     const hdNode: bcl.HDNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
     const HDPath: string = `44'/145'/0'/0/`
 
